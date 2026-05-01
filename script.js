@@ -22,7 +22,10 @@ async function loadModel() {
   loading.classList.add('show');
   loadingText.textContent = 'Loading model...';
   try {
-    model = await mobilenet.load({ version: 2, alpha: 1.0 });
+    // MobileNet v1 is hosted on Google Cloud Storage with proper CORS headers.
+    // v2 is hosted on tfhub.dev which now redirects to kaggle.com (no CORS),
+    // so it fails in production browsers.
+    model = await mobilenet.load({ version: 1, alpha: 1.0 });
   } catch (e) {
     console.error(e);
     loadingText.textContent = 'Failed to load model. Please reload the page.';
