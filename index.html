@@ -1,174 +1,10 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>SeeFood - Hot Dog or Not Hot Dog</title>
-<style>
-  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-  html, body {
-    height: 100%;
-    background: #111;
-    color: #fff;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    overflow: hidden;
-  }
-  body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px;
-  }
-  .header {
-    text-align: center;
-    padding: 10px;
-  }
-  .header h1 {
-    font-size: 28px;
-    font-weight: 800;
-    letter-spacing: 2px;
-    color: #fff;
-  }
-  .header p {
-    font-size: 12px;
-    color: #888;
-    margin-top: 4px;
-    letter-spacing: 1px;
-  }
-  .viewport {
-    flex: 1;
-    width: 100%;
-    max-width: 500px;
-    background: #000;
-    border-radius: 16px;
-    overflow: hidden;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 16px 0;
-    min-height: 300px;
-  }
-  video, #preview {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: none;
-  }
-  video.active, #preview.active { display: block; }
-  .placeholder {
-    color: #555;
-    font-size: 14px;
-    text-align: center;
-    padding: 20px;
-  }
-  .controls {
-    width: 100%;
-    max-width: 500px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    align-items: center;
-    padding-bottom: 10px;
-  }
-  button {
-    width: 100%;
-    padding: 18px;
-    font-size: 18px;
-    font-weight: 700;
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    background: #fff;
-    color: #111;
-    transition: transform 0.1s, opacity 0.2s;
-    letter-spacing: 1px;
-  }
-  button:active { transform: scale(0.97); }
-  button:disabled { opacity: 0.5; cursor: not-allowed; }
-  button.secondary {
-    background: transparent;
-    color: #888;
-    border: 1px solid #333;
-  }
-  .file-input-wrapper {
-    width: 100%;
-    position: relative;
-  }
-  .file-input-wrapper input[type=file] {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    opacity: 0;
-    cursor: pointer;
-  }
-  .result-overlay {
-    position: fixed;
-    inset: 0;
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    z-index: 100;
-    cursor: pointer;
-    animation: fadeIn 0.3s ease;
-  }
-  .result-overlay.show { display: flex; }
-  .result-overlay.hotdog { background: #00b14f; }
-  .result-overlay.nothotdog { background: #ff2e2e; }
-  .result-overlay .icon {
-    font-size: 120px;
-    margin-bottom: 20px;
-  }
-  .result-overlay h2 {
-    font-size: 48px;
-    font-weight: 900;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    text-align: center;
-    padding: 0 20px;
-  }
-  .result-overlay .tap {
-    margin-top: 40px;
-    font-size: 14px;
-    opacity: 0.7;
-    letter-spacing: 2px;
-  }
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-  .loading {
-    position: absolute;
-    inset: 0;
-    background: rgba(0,0,0,0.85);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 16px;
-    z-index: 50;
-  }
-  .loading.show { display: flex; }
-  .spinner {
-    width: 40px;
-    height: 40px;
-    border: 3px solid #333;
-    border-top-color: #fff;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-  }
-  @keyframes spin { to { transform: rotate(360deg); } }
-  .footer {
-    font-size: 10px;
-    color: #444;
-    text-align: center;
-    letter-spacing: 1px;
-  }
-</style>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
@@ -178,19 +14,28 @@
 </div>
 
 <div class="viewport">
-  <div class="placeholder" id="placeholder">Toque em "Tirar foto" para começar</div>
+  <div class="placeholder" id="placeholder">Tap "Take Photo" to start</div>
   <video id="video" playsinline autoplay muted></video>
   <img id="preview" alt="">
+
+  <div class="result-badge" id="result">
+    <div class="badge-circle" id="badgeCircle">
+      <span class="badge-icon" id="resultIcon">✓</span>
+    </div>
+    <div class="badge-label" id="resultText">HOT DOG</div>
+    <div class="badge-tap">TAP TO TRY AGAIN</div>
+  </div>
+
   <div class="loading" id="loading">
     <div class="spinner"></div>
-    <div id="loadingText">Carregando modelo...</div>
+    <div id="loadingText">Loading model...</div>
   </div>
 </div>
 
 <div class="controls">
-  <button id="captureBtn">📷 Tirar foto</button>
+  <button id="captureBtn">📷 Take Photo</button>
   <div class="file-input-wrapper">
-    <button class="secondary">📁 Ou escolher da galeria</button>
+    <button class="secondary">📁 Or choose from gallery</button>
     <input type="file" id="fileInput" accept="image/*" capture="environment">
   </div>
 </div>
@@ -199,181 +44,9 @@
 
 <canvas id="canvas" style="display:none"></canvas>
 
-<div class="result-overlay" id="result" onclick="resetApp()">
-  <div class="icon" id="resultIcon">✓</div>
-  <h2 id="resultText">Hot Dog</h2>
-  <div class="tap">TOQUE PARA TENTAR DE NOVO</div>
-</div>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tensorflow/4.10.0/tf.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet@2.1.0/dist/mobilenet.min.js"></script>
-
-<script>
-  const video = document.getElementById('video');
-  const preview = document.getElementById('preview');
-  const canvas = document.getElementById('canvas');
-  const captureBtn = document.getElementById('captureBtn');
-  const fileInput = document.getElementById('fileInput');
-  const placeholder = document.getElementById('placeholder');
-  const loading = document.getElementById('loading');
-  const loadingText = document.getElementById('loadingText');
-  const result = document.getElementById('result');
-  const resultIcon = document.getElementById('resultIcon');
-  const resultText = document.getElementById('resultText');
-
-  let model = null;
-  let stream = null;
-  let mode = 'idle'; // idle | camera | preview
-
-  // Palavras que indicam "hot dog" no MobileNet (ImageNet)
-  const HOTDOG_KEYWORDS = ['hotdog', 'hot dog', 'frankfurter', 'frank', 'wiener'];
-
-  async function loadModel() {
-    if (model) return;
-    loading.classList.add('show');
-    loadingText.textContent = 'Carregando modelo...';
-    try {
-      model = await mobilenet.load({ version: 2, alpha: 1.0 });
-    } catch (e) {
-      console.error(e);
-      loadingText.textContent = 'Erro ao carregar modelo. Recarregue a página.';
-      return;
-    }
-    loading.classList.remove('show');
-  }
-
-  async function startCamera() {
-    try {
-      stream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: 'environment' },
-        audio: false
-      });
-      video.srcObject = stream;
-      video.classList.add('active');
-      preview.classList.remove('active');
-      placeholder.style.display = 'none';
-      mode = 'camera';
-      captureBtn.textContent = '📸 Capturar';
-    } catch (err) {
-      console.error('Camera error:', err);
-      placeholder.textContent = 'Câmera indisponível. Use a galeria abaixo.';
-      placeholder.style.display = 'block';
-    }
-  }
-
-  function stopCamera() {
-    if (stream) {
-      stream.getTracks().forEach(t => t.stop());
-      stream = null;
-    }
-    video.classList.remove('active');
-  }
-
-  async function captureFromVideo() {
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
-    canvas.getContext('2d').drawImage(video, 0, 0);
-    const dataURL = canvas.toDataURL('image/jpeg', 0.9);
-    preview.src = dataURL;
-    preview.classList.add('active');
-    video.classList.remove('active');
-    stopCamera();
-    mode = 'preview';
-    await classifyImage(preview);
-  }
-
-  async function handleFile(file) {
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = async (e) => {
-      preview.src = e.target.result;
-      preview.classList.add('active');
-      video.classList.remove('active');
-      placeholder.style.display = 'none';
-      stopCamera();
-      mode = 'preview';
-      preview.onload = async () => {
-        await classifyImage(preview);
-      };
-    };
-    reader.readAsDataURL(file);
-  }
-
-  async function classifyImage(imgEl) {
-    await loadModel();
-    if (!model) return;
-    loading.classList.add('show');
-    loadingText.textContent = 'Analisando...';
-
-    // Esperar a imagem carregar
-    if (!imgEl.complete) {
-      await new Promise(r => imgEl.onload = r);
-    }
-
-    try {
-      const predictions = await model.classify(imgEl, 5);
-      console.log('Predictions:', predictions);
-
-      const isHotDog = predictions.some(p => {
-        const cls = p.className.toLowerCase();
-        return HOTDOG_KEYWORDS.some(k => cls.includes(k)) && p.probability > 0.15;
-      });
-
-      loading.classList.remove('show');
-      showResult(isHotDog);
-    } catch (e) {
-      console.error(e);
-      loading.classList.remove('show');
-      alert('Erro ao analisar a imagem.');
-    }
-  }
-
-  function showResult(isHotDog) {
-    result.classList.remove('hotdog', 'nothotdog');
-    if (isHotDog) {
-      result.classList.add('hotdog');
-      resultIcon.textContent = '🌭';
-      resultText.textContent = 'Hot Dog';
-    } else {
-      result.classList.add('nothotdog');
-      resultIcon.textContent = '✕';
-      resultText.textContent = 'Not Hot Dog';
-    }
-    result.classList.add('show');
-  }
-
-  function resetApp() {
-    result.classList.remove('show');
-    preview.classList.remove('active');
-    preview.src = '';
-    placeholder.style.display = 'block';
-    placeholder.textContent = 'Toque em "Tirar foto" para começar';
-    captureBtn.textContent = '📷 Tirar foto';
-    mode = 'idle';
-  }
-
-  captureBtn.addEventListener('click', async () => {
-    if (mode === 'idle') {
-      await startCamera();
-    } else if (mode === 'camera') {
-      await captureFromVideo();
-    } else if (mode === 'preview') {
-      resetApp();
-      await startCamera();
-    }
-  });
-
-  fileInput.addEventListener('change', (e) => {
-    if (e.target.files && e.target.files[0]) {
-      handleFile(e.target.files[0]);
-    }
-  });
-
-  // Pré-carrega o modelo
-  window.addEventListener('load', () => {
-    setTimeout(loadModel, 500);
-  });
-</script>
+<script src="script.js"></script>
 
 </body>
 </html>

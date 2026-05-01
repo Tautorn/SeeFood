@@ -1,0 +1,15 @@
+node_modules
+.env
+*logs*
+*cache*
+*temp*
+*backup*
+*old*
+*archive*
+*trash*
+*recycle*
+*temp*
+*backup*
+*old*
+*archive*
+*trash*
