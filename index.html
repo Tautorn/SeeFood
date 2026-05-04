@@ -2,51 +2,288 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>SeeFood - Hot Dog or Not Hot Dog</title>
-<link rel="stylesheet" href="styles.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SeeFood — AI-First Food Recognition Platform</title>
+<link rel="stylesheet" href="landing.css">
 </head>
 <body>
 
-<div class="header">
-  <h1>SEEFOOD</h1>
-  <p>HOT DOG OR NOT HOT DOG</p>
-</div>
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">SEEFOOD</a>
+  <span class="nav-badge">AI-FIRST · TENSORFLOW</span>
+</nav>
 
-<div class="viewport">
-  <div class="placeholder" id="placeholder">Tap "Take Photo" to start</div>
-  <video id="video" playsinline autoplay muted></video>
-  <img id="preview" alt="">
-
-  <div class="result-badge" id="result">
-    <div class="badge-circle" id="badgeCircle">
-      <span class="badge-icon" id="resultIcon">✓</span>
+<!-- HERO -->
+<section class="hero">
+  <span class="hero-eyebrow">// NEXT-GENERATION COMPUTER VISION</span>
+  <h1 class="hero-title">SEEFOOD</h1>
+  <p class="hero-sub">THE WORLD'S MOST ADVANCED<br>FOOD RECOGNITION PLATFORM</p>
+  <p class="hero-desc">
+    Powered by TensorFlow and deep convolutional neural networks trained on over
+    1.2 million images. SeeFood solves the most pressing culinary classification
+    challenge of our generation — in real time.
+  </p>
+  <div class="cta-group">
+    <a href="app.html" class="btn-primary">LAUNCH APP</a>
+    <a href="#problem" class="btn-secondary">LEARN MORE</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-number">1.2M+</div>
+      <div class="stat-label">TRAINING IMAGES</div>
     </div>
-    <div class="badge-label" id="resultText">HOT DOG</div>
-    <div class="badge-tap">TAP TO TRY AGAIN</div>
+    <div class="stat">
+      <div class="stat-number">1000</div>
+      <div class="stat-label">OBJECT CLASSES</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">&lt;2s</div>
+      <div class="stat-label">INFERENCE TIME</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">100%</div>
+      <div class="stat-label">HOT DOG FOCUS</div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- THE PROBLEM -->
+<section class="section" id="problem">
+  <span class="section-tag">// 01 · THE PROBLEM</span>
+  <h2 class="section-title">Humanity has a<br><span>hot dog problem.</span></h2>
+  <p class="section-body">
+    Every single day, millions of people around the world pick up a food item,
+    look at it, and simply do not know if it is a hot dog. The economic impact
+    of this uncertainty is staggering. The cognitive load is immeasurable.
+    The emotional toll — unspoken, but real.
+    <br><br>
+    We asked ourselves: what if we could eliminate this ambiguity forever?
+    What if artificial intelligence could do what the human eye has failed
+    to do reliably for centuries?
+  </p>
+  <div class="problem-cards">
+    <div class="card">
+      <div class="card-icon">🌭</div>
+      <div class="card-title">MISIDENTIFICATION CRISIS</div>
+      <div class="card-body">
+        Research suggests that up to 34% of food identification errors
+        involve cylindrical meat-based products. The stakes have never been higher.
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-icon">🧠</div>
+      <div class="card-title">COGNITIVE OVERLOAD</div>
+      <div class="card-body">
+        The human brain was not designed for the complexity of modern food taxonomy.
+        We need machines to fill this gap. Immediately.
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-icon">⚡</div>
+      <div class="card-title">LATENCY IS THE ENEMY</div>
+      <div class="card-body">
+        Manual hot dog identification takes an average of 2.3 seconds.
+        SeeFood delivers results in under 2 seconds.
+        That's a 13% improvement. At scale, this is civilization-defining.
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- THE TECHNOLOGY -->
+<section class="section" id="technology">
+  <span class="section-tag">// 02 · THE TECHNOLOGY</span>
+  <h2 class="section-title">Built on the <span>foundations</span><br>of modern AI.</h2>
+  <p class="section-body">
+    SeeFood is not a simple image filter. It is a fully-featured inference pipeline
+    running a pre-trained convolutional neural network, quantized for browser execution,
+    with zero backend dependencies. We run entirely on your device.
+    Your hot dogs stay private.
+  </p>
+
+  <div class="tech-stack">
+    <div class="tech-item">
+      <div class="tech-name">TENSORFLOW.JS</div>
+      <div class="tech-desc">
+        Google's open-source ML framework, adapted for JavaScript environments.
+        Runs full inference in-browser using WebGL acceleration.
+      </div>
+      <div class="tech-bar-wrap">
+        <div class="tech-bar-label">CORE DEPENDENCY</div>
+        <div class="tech-bar"><div class="tech-bar-fill" style="--w: 100%"></div></div>
+      </div>
+    </div>
+    <div class="tech-item">
+      <div class="tech-name">MOBILENET V1</div>
+      <div class="tech-desc">
+        Depthwise separable convolutions optimized for mobile and edge devices.
+        1000-class ImageNet classification. Includes the hotdog class. Yes, really.
+      </div>
+      <div class="tech-bar-wrap">
+        <div class="tech-bar-label">MODEL ACCURACY</div>
+        <div class="tech-bar"><div class="tech-bar-fill" style="--w: 89%"></div></div>
+      </div>
+    </div>
+    <div class="tech-item">
+      <div class="tech-name">IMAGENET</div>
+      <div class="tech-desc">
+        1.2 million labeled images across 1000 categories. The foundation of modern
+        computer vision. One of those categories is hot dog. One. Single. Category.
+      </div>
+      <div class="tech-bar-wrap">
+        <div class="tech-bar-label">TRAINING SCALE</div>
+        <div class="tech-bar"><div class="tech-bar-fill" style="--w: 95%"></div></div>
+      </div>
+    </div>
+    <div class="tech-item">
+      <div class="tech-name">WEBGL BACKEND</div>
+      <div class="tech-desc">
+        GPU-accelerated tensor operations running natively in your browser.
+        No installation. No API calls. No cloud fees.
+        Just raw, unbridled hot dog detection.
+      </div>
+      <div class="tech-bar-wrap">
+        <div class="tech-bar-label">EDGE COMPUTE</div>
+        <div class="tech-bar"><div class="tech-bar-fill" style="--w: 92%"></div></div>
+      </div>
+    </div>
   </div>
 
-  <div class="loading" id="loading">
-    <div class="spinner"></div>
-    <div id="loadingText">Loading model...</div>
+  <div class="terminal">
+    <span class="dim">// SeeFood inference pipeline — simplified</span><br>
+    <span class="pink">const</span> <span class="cyan">model</span> = <span class="pink">await</span> mobilenet.<span class="yellow">load</span>({ version: <span class="yellow">1</span>, alpha: <span class="yellow">1.0</span> });<br>
+    <span class="pink">const</span> <span class="cyan">predictions</span> = <span class="pink">await</span> model.<span class="yellow">classify</span>(imageElement, <span class="yellow">5</span>);<br>
+    <span class="pink">const</span> <span class="cyan">isHotDog</span> = predictions.<span class="yellow">some</span>(p =&gt; p.className.<span class="yellow">includes</span>(<span class="pink">'hotdog'</span>));<br>
+    <br>
+    <span class="dim">// result:</span> <span class="yellow">true</span> <span class="dim">| false — the only answer that matters</span><br>
+    <span class="cursor"></span>
   </div>
-</div>
+</section>
 
-<div class="controls">
-  <button id="captureBtn">📷 Take Photo</button>
-  <div class="file-input-wrapper">
-    <button class="secondary">📁 Or choose from gallery</button>
-    <input type="file" id="fileInput" accept="image/*" capture="environment">
+<div class="section-divider"></div>
+
+<!-- HOW IT WORKS -->
+<section class="section" id="how">
+  <span class="section-tag">// 03 · HOW IT WORKS</span>
+  <h2 class="section-title">Three steps.<br><span>One truth.</span></h2>
+  <p class="section-body">
+    We have engineered a frictionless user experience that respects your time
+    and gets straight to the point. Is it a hot dog? Let's find out.
+  </p>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-icon">📸</div>
+      <div class="step-title">CAPTURE</div>
+      <div class="step-body">
+        Point your camera at any food item — or upload from your gallery.
+        Our pipeline accepts JPEG, PNG, WebP, and most modern image formats.
+        No prior food identification experience required.
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-icon">⚙️</div>
+      <div class="step-title">INFER</div>
+      <div class="step-body">
+        MobileNet processes your image through 28 convolutional layers,
+        extracting spatial features and mapping them to a probability
+        distribution across 1000 classes. Hot dog is one of them.
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-icon">✅</div>
+      <div class="step-title">KNOW</div>
+      <div class="step-body">
+        Receive a binary, unambiguous result. Hot Dog or Not Hot Dog.
+        No maybes. No uncertainty. No wasted seconds of existential
+        doubt at the food cart.
+      </div>
+    </div>
   </div>
-</div>
+</section>
 
-<div class="footer">NOT JIAN-YANG · BUT CLOSE ENOUGH</div>
+<div class="section-divider"></div>
 
-<canvas id="canvas" style="display:none"></canvas>
+<!-- QUOTE -->
+<section class="quote-section">
+  <div class="quote-box">
+    <p class="quote-text">
+      "Not hot dog."
+    </p>
+    <p class="quote-author">— <span>JIAN-YANG</span>, Silicon Valley (HBO) · The Original Visionary</p>
+  </div>
+</section>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tensorflow/4.10.0/tf.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet@2.1.0/dist/mobilenet.min.js"></script>
-<script src="script.js"></script>
+<div class="section-divider"></div>
+
+<!-- PRIVACY / EDGE -->
+<section class="section">
+  <span class="section-tag">// 04 · PRIVACY BY DESIGN</span>
+  <h2 class="section-title">Your hot dogs<br><span>stay on-device.</span></h2>
+  <p class="section-body">
+    SeeFood processes all images locally. The model weights are downloaded once
+    and cached by your browser. Nothing is ever sent to a server.
+    We do not store, transmit, or monetize your food photography.
+    <br><br>
+    This is not because we are particularly principled. It's because we
+    genuinely do not have a backend. 100% edge inference.
+    Accidentally GDPR-compliant.
+  </p>
+  <div class="problem-cards">
+    <div class="card">
+      <div class="card-icon">🔒</div>
+      <div class="card-title">ZERO SERVER CALLS</div>
+      <div class="card-body">
+        The entire model runs in your browser via TensorFlow.js.
+        No API keys. No accounts. No surveillance capitalism.
+        Just neural networks and hot dogs.
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-icon">📦</div>
+      <div class="card-title">OFFLINE CAPABLE</div>
+      <div class="card-body">
+        Once the model is cached, SeeFood works without an internet connection.
+        Because hot dog emergencies don't wait for WiFi.
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-icon">💸</div>
+      <div class="card-title">FREE FOREVER</div>
+      <div class="card-body">
+        No freemium tier. No "Pro plan" with unlimited classifications.
+        No VC funding to justify. This is open-source enthusiasm,
+        deployed to GitHub Pages.
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <h2 class="final-cta-title">STOP WONDERING.<br>START KNOWING.</h2>
+  <p class="final-cta-sub">// THE ANSWER IS ONE TAP AWAY</p>
+  <a href="app.html" class="btn-primary">LAUNCH SEEFOOD</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-logo">SEEFOOD</span>
+  <span class="footer-copy">
+    Inspired by Jian-Yang's vision · Built with TensorFlow ·
+    Powered by pure ambition ·
+    <a href="https://github.com/tensorflow/tfjs-models/tree/master/mobilenet" target="_blank">MobileNet</a>
+  </span>
+</footer>
 
 </body>
 </html>

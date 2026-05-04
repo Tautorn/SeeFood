@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>SeeFood — Hot Dog or Not Hot Dog</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="header">
+  <a href="index.html" class="back-link">← Back</a>
+  <h1>SEEFOOD</h1>
+  <p>HOT DOG OR NOT HOT DOG</p>
+</div>
+
+<div class="viewport">
+  <div class="placeholder" id="placeholder">Tap "Take Photo" to start</div>
+  <video id="video" playsinline autoplay muted></video>
+  <img id="preview" alt="">
+
+  <div class="result-badge" id="result">
+    <div class="badge-circle" id="badgeCircle">
+      <span class="badge-icon" id="resultIcon">✓</span>
+    </div>
+    <div class="badge-label" id="resultText">HOT DOG</div>
+    <div class="badge-tap">TAP TO TRY AGAIN</div>
+  </div>
+
+  <div class="loading" id="loading">
+    <div class="spinner"></div>
+    <div id="loadingText">Loading model...</div>
+  </div>
+</div>
+
+<div class="controls">
+  <button id="captureBtn">📷 Take Photo</button>
+  <div class="file-input-wrapper">
+    <button class="secondary">📁 Or choose from gallery</button>
+    <input type="file" id="fileInput" accept="image/*" capture="environment">
+  </div>
+</div>
+
+<div class="footer">NOT JIAN-YANG · BUT CLOSE ENOUGH</div>
+
+<canvas id="canvas" style="display:none"></canvas>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tensorflow/4.10.0/tf.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet@2.1.0/dist/mobilenet.min.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>
