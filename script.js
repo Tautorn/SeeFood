@@ -22,13 +22,8 @@ async function loadModel() {
   loading.classList.add('show');
   loadingText.textContent = 'Loading model...';
   try {
-    // Load directly from GCS which has proper CORS headers.
-    // tfhub.dev redirects to kaggle.com (no CORS) and fails in production.
-    model = await mobilenet.load({
-      version: 1,
-      alpha: 1.0,
-      modelUrl: 'https://storage.googleapis.com/tfjs-models/tfjs/mobilenet_v1_1.0_224/model.json'
-    });
+    // mobilenet v1.x loads from GCS (CORS-enabled); v2.x uses tfhub.dev which blocks CORS.
+    model = await mobilenet.load(1, 1.0);
   } catch (e) {
     console.error(e);
     loadingText.textContent = 'Failed to load model. Please reload the page.';
