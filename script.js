@@ -14,16 +14,16 @@ let model = null;
 let stream = null;
 let mode = 'idle'; // idle | camera | preview
 
-// Keywords that indicate "hot dog" in MobileNet (ImageNet classes)
-const HOTDOG_KEYWORDS = ['hotdog', 'hot dog', 'frankfurter', 'frank', 'wiener'];
+// ImageNet class 934 = "hotdog, hot dog, red hot"
+const HOTDOG_CLASS_INDEX = 934;
+const HOTDOG_THRESHOLD = 0.15;
 
 async function loadModel() {
   if (model) return;
   loading.classList.add('show');
   loadingText.textContent = 'Loading model...';
   try {
-    // mobilenet v1.x loads from GCS (CORS-enabled); v2.x uses tfhub.dev which blocks CORS.
-    model = await mobilenet.load(1, 1.0);
+    model = await tf.loadLayersModel('/model/model.json');
   } catch (e) {
     console.error(e);
     loadingText.textContent = 'Failed to load model. Please reload the page.';
@@ -101,13 +101,21 @@ async function classifyImage(imgEl) {
   }
 
   try {
-    const predictions = await model.classify(imgEl, 5);
-    console.log('Predictions:', predictions);
+    const tensor = tf.browser.fromPixels(imgEl)
+      .resizeNearestNeighbor([224, 224])
+      .toFloat()
+      .div(tf.scalar(127.5))
+      .sub(tf.scalar(1))
+      .expandDims();
 
-    const isHotDog = predictions.some(p => {
-      const cls = p.className.toLowerCase();
-      return HOTDOG_KEYWORDS.some(k => cls.includes(k)) && p.probability > 0.15;
-    });
+    const predictions = model.predict(tensor);
+    const data = await predictions.data();
+    tensor.dispose();
+    predictions.dispose();
+
+    const hotdogProb = data[HOTDOG_CLASS_INDEX];
+    console.log('Hotdog probability:', hotdogProb);
+    const isHotDog = hotdogProb > HOTDOG_THRESHOLD;
 
     loading.classList.remove('show');
     showResult(isHotDog);
