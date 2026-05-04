@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SeeFood — Product Roadmap</title>
+<link rel="stylesheet" href="landing.css">
+<style>
+  /* ── ROADMAP-SPECIFIC ── */
+  .roadmap-hero {
+    padding: 100px 24px 64px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .phase-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 48px;
+    position: relative;
+  }
+
+  .phase-grid::before {
+    content: '';
+    position: absolute;
+    left: 39px;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(180deg, transparent, var(--neon-green), var(--neon-cyan), var(--neon-pink), transparent);
+    opacity: 0.3;
+  }
+
+  .phase {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 24px;
+    padding: 32px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .phase:last-child { border-bottom: none; }
+
+  .phase-dot-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding-top: 4px;
+  }
+
+  .phase-dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid;
+    flex-shrink: 0;
+    position: relative;
+  }
+
+  .phase-dot.done {
+    border-color: var(--neon-green);
+    background: var(--neon-green);
+    box-shadow: 0 0 12px var(--neon-green), 0 0 24px rgba(0,255,159,0.3);
+  }
+
+  .phase-dot.active {
+    border-color: var(--neon-cyan);
+    background: transparent;
+    box-shadow: 0 0 12px var(--neon-cyan);
+    animation: pulseDot 2s ease-in-out infinite;
+  }
+
+  .phase-dot.planned {
+    border-color: var(--text-dim);
+    background: transparent;
+  }
+
+  .phase-dot.redacted {
+    border-color: var(--neon-pink);
+    background: transparent;
+    box-shadow: 0 0 8px rgba(255,45,120,0.3);
+  }
+
+  @keyframes pulseDot {
+    0%, 100% { box-shadow: 0 0 8px var(--neon-cyan); }
+    50% { box-shadow: 0 0 20px var(--neon-cyan), 0 0 40px rgba(0,229,255,0.3); }
+  }
+
+  .phase-tag {
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-align: center;
+    margin-top: 4px;
+  }
+
+  .phase-tag.done { color: var(--neon-green); }
+  .phase-tag.active { color: var(--neon-cyan); }
+  .phase-tag.planned { color: var(--text-dim); }
+  .phase-tag.redacted { color: var(--neon-pink); }
+
+  .phase-content {}
+
+  .phase-period {
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: var(--text-dim);
+    margin-bottom: 8px;
+  }
+
+  .phase-title {
+    font-size: 22px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    color: #fff;
+    margin-bottom: 12px;
+    line-height: 1.2;
+  }
+
+  .phase-title .accent-green { color: var(--neon-green); text-shadow: 0 0 12px var(--neon-green); }
+  .phase-title .accent-cyan  { color: var(--neon-cyan);  text-shadow: 0 0 12px var(--neon-cyan);  }
+  .phase-title .accent-pink  { color: var(--neon-pink);  text-shadow: 0 0 12px var(--neon-pink);  }
+
+  .phase-desc {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 14px;
+    color: var(--text-dim);
+    line-height: 1.8;
+    max-width: 580px;
+    margin-bottom: 20px;
+  }
+
+  .milestone-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .milestone {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 12px;
+    letter-spacing: 1px;
+  }
+
+  .milestone-check {
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .milestone.done-item .milestone-check { color: var(--neon-green); }
+  .milestone.done-item .milestone-text  { color: var(--text); text-decoration: none; }
+
+  .milestone.pending-item .milestone-check { color: var(--text-dim); }
+  .milestone.pending-item .milestone-text  { color: var(--text-dim); }
+
+  .milestone.redacted-item .milestone-text {
+    color: var(--neon-pink);
+    background: var(--neon-pink);
+    border-radius: 2px;
+    user-select: none;
+  }
+
+  .okr-box {
+    margin-top: 20px;
+    padding: 16px 20px;
+    background: rgba(0,0,0,0.3);
+    border: 1px solid var(--border);
+    border-left: 3px solid;
+    border-radius: 2px;
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    color: var(--text-dim);
+    max-width: 500px;
+  }
+
+  .okr-box.green { border-left-color: var(--neon-green); }
+  .okr-box.cyan  { border-left-color: var(--neon-cyan);  }
+  .okr-box.pink  { border-left-color: var(--neon-pink);  }
+
+  .okr-label {
+    font-size: 9px;
+    letter-spacing: 3px;
+    margin-bottom: 6px;
+    opacity: 0.6;
+  }
+
+  .okr-text { line-height: 1.7; }
+
+  /* vision section */
+  .vision-box {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 48px;
+    margin-top: 48px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .vision-box::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--neon-green), var(--neon-cyan), var(--neon-pink));
+  }
+
+  .vision-title {
+    font-size: clamp(20px, 3vw, 32px);
+    font-weight: 900;
+    letter-spacing: 2px;
+    color: #fff;
+    margin-bottom: 20px;
+  }
+
+  .vision-body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 15px;
+    color: var(--text-dim);
+    line-height: 1.9;
+    max-width: 640px;
+  }
+
+  .stat-row {
+    display: flex;
+    gap: 40px;
+    margin-top: 36px;
+    flex-wrap: wrap;
+  }
+
+  /* back link */
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: color 0.2s;
+    margin-bottom: 32px;
+  }
+
+  .back-link:hover { color: var(--neon-green); }
+
+  @media (max-width: 640px) {
+    .phase { grid-template-columns: 48px 1fr; gap: 16px; }
+    .phase-grid::before { left: 23px; }
+    .vision-box { padding: 28px 20px; }
+    .stat-row { gap: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">SEEFOOD</a>
+  <span class="nav-badge">PRODUCT ROADMAP · 2025–∞</span>
+</nav>
+
+<!-- HERO -->
+<section class="roadmap-hero">
+  <span class="hero-eyebrow">// STRATEGIC VISION · EXECUTION PLAN · WORLD DOMINATION</span>
+  <h1 class="hero-title" style="font-size: clamp(48px, 10vw, 100px);">ROADMAP</h1>
+  <p class="hero-sub" style="font-size: clamp(12px, 2vw, 16px);">WHERE WE ARE. WHERE WE'RE GOING.<br>WHY IT MATTERS.</p>
+  <p class="hero-desc">
+    We are disciplined. We do not chase hype. We execute on the core use case
+    before expanding into adjacent verticals. This is the plan.
+  </p>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- TIMELINE -->
+<section class="section">
+  <span class="section-tag">// THE EXECUTION TIMELINE</span>
+  <h2 class="section-title">Phase by phase.<br><span>Milestone by milestone.</span></h2>
+
+  <div class="phase-grid">
+
+    <!-- PHASE 1 -->
+    <div class="phase">
+      <div class="phase-dot-wrap">
+        <div class="phase-dot done"></div>
+        <span class="phase-tag done">DONE</span>
+      </div>
+      <div class="phase-content">
+        <div class="phase-period">// PHASE 1 · Q1 2025</div>
+        <div class="phase-title"><span class="accent-green">HOT DOG DETECTION</span><br>The Foundation.</div>
+        <p class="phase-desc">
+          Nail the core classification. Binary output. Zero ambiguity.
+          We identified the world's most high-stakes food identification problem
+          and we solved it. Deployed. In production. Working.
+        </p>
+        <div class="milestone-list">
+          <div class="milestone done-item"><span class="milestone-check">✓</span><span class="milestone-text">MobileNet V1 inference pipeline — browser-native</span></div>
+          <div class="milestone done-item"><span class="milestone-check">✓</span><span class="milestone-text">WebGL GPU acceleration via TensorFlow.js</span></div>
+          <div class="milestone done-item"><span class="milestone-check">✓</span><span class="milestone-text">98.7% hot dog detection accuracy</span></div>
+          <div class="milestone done-item"><span class="milestone-check">✓</span><span class="milestone-text">Sub-2-second inference time</span></div>
+          <div class="milestone done-item"><span class="milestone-check">✓</span><span class="milestone-text">Zero backend — fully on-device</span></div>
+          <div class="milestone done-item"><span class="milestone-check">✓</span><span class="milestone-text">Accidentally GDPR-compliant</span></div>
+        </div>
+        <div class="okr-box green">
+          <div class="okr-label">// KEY RESULT</div>
+          <div class="okr-text">Achieve binary hot dog classification with >95% accuracy. <strong style="color:#fff">Status: SHIPPED. 98.7%.</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHASE 2 -->
+    <div class="phase">
+      <div class="phase-dot-wrap">
+        <div class="phase-dot active"></div>
+        <span class="phase-tag active">NOW</span>
+      </div>
+      <div class="phase-content">
+        <div class="phase-period">// PHASE 2 · Q2–Q3 2025</div>
+        <div class="phase-title">Expanding the <span class="accent-cyan">CYLINDRICAL MEAT</span><br>Taxonomy.</div>
+        <p class="phase-desc">
+          Hot dogs are solved. But the cylindrical meat ecosystem is vast.
+          Sausages. Bratwursts. Corn dogs. Each one a distinct classification challenge.
+          Each one a responsibility we cannot ignore.
+        </p>
+        <div class="milestone-list">
+          <div class="milestone done-item"><span class="milestone-check">✓</span><span class="milestone-text">Sausage sub-class identification (prototype)</span></div>
+          <div class="milestone pending-item"><span class="milestone-check">○</span><span class="milestone-text">Bratwurst vs. frankfurter disambiguation engine</span></div>
+          <div class="milestone pending-item"><span class="milestone-check">○</span><span class="milestone-text">Corn dog detection (battered variant edge case)</span></div>
+          <div class="milestone pending-item"><span class="milestone-check">○</span><span class="milestone-text">Confidence scoring UI with probability bar</span></div>
+          <div class="milestone pending-item"><span class="milestone-check">○</span><span class="milestone-text">Multi-language output (starting with Portuguese & Mandarin)</span></div>
+        </div>
+        <div class="okr-box cyan">
+          <div class="okr-label">// KEY RESULT</div>
+          <div class="okr-text">Classify 5 cylindrical meat variants with >90% per-class accuracy. <strong style="color:#fff">Status: IN PROGRESS.</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHASE 3 -->
+    <div class="phase">
+      <div class="phase-dot-wrap">
+        <div class="phase-dot planned"></div>
+        <span class="phase-tag planned">NEXT</span>
+      </div>
+      <div class="phase-content">
+        <div class="phase-period">// PHASE 3 · Q4 2025</div>
+        <div class="phase-title">The <span class="accent-green">TACO</span> Problem.<br>An Adjacent Vertical.</div>
+        <p class="phase-desc">
+          This is a controversial move internally. Tacos are not cylindrical.
+          The taxonomy shift is significant. The engineering challenge is real.
+          But the market is there. We move when we are ready. Not before.
+        </p>
+        <div class="milestone-list">
+          <div class="milestone pending-item"><span class="milestone-check">○</span><span class="milestone-text">Taco vs. burrito classification model (research phase)</span></div>
+          <div class="milestone pending-item"><span class="milestone-check">○</span><span class="milestone-text">Folded-vs-hard-shell edge case handling</span></div>
+          <div class="milestone pending-item"><span class="milestone-check">○</span><span class="milestone-text">Cross-cultural taco variant dataset acquisition</span></div>
+          <div class="milestone pending-item"><span class="milestone-check">○</span><span class="milestone-text">Rebranding feasibility study (tentative: "SeeFood 2.0")</span></div>
+        </div>
+        <div class="okr-box cyan">
+          <div class="okr-label">// KEY RESULT</div>
+          <div class="okr-text">Ship taco detection without breaking hot dog accuracy. Hot dogs come first. Always.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHASE 4 -->
+    <div class="phase">
+      <div class="phase-dot-wrap">
+        <div class="phase-dot planned"></div>
+        <span class="phase-tag planned">2026</span>
+      </div>
+      <div class="phase-content">
+        <div class="phase-period">// PHASE 4 · H1 2026</div>
+        <div class="phase-title">The <span class="accent-green">SANDWICH</span><br>Classification Crisis.</div>
+        <p class="phase-desc">
+          Is a hot dog a sandwich? This is a philosophical question.
+          It is also a legal question in at least three U.S. states.
+          Phase 4 does not answer the question. Phase 4 classifies the object
+          and lets the user draw their own conclusions. We are a technology company,
+          not a court of law.
+        </p>
+        <div class="milestone-list">
+          <div class="milestone pending-item"><span class="milestone-check">○</span><span class="milestone-text">Sandwich superclass taxonomy design</span></div>
+          <div class="milestone pending-item"><span class="milestone-check">○</span><span class="milestone-text">Hot dog ↔ sandwich overlap resolution framework</span></div>
+          <div class="milestone pending-item"><span class="milestone-check">○</span><span class="milestone-text">Legal review of classification output liability</span></div>
+          <div class="milestone pending-item"><span class="milestone-check">○</span><span class="milestone-text">Philosophical disclaimer UI component</span></div>
+        </div>
+        <div class="okr-box cyan">
+          <div class="okr-label">// KEY RESULT</div>
+          <div class="okr-text">Classify 12 sandwich variants. Explicitly refuse to answer "is a hot dog a sandwich." That question has no answer. There is no answer.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHASE 5 - REDACTED -->
+    <div class="phase">
+      <div class="phase-dot-wrap">
+        <div class="phase-dot redacted"></div>
+        <span class="phase-tag redacted">????</span>
+      </div>
+      <div class="phase-content">
+        <div class="phase-period">// PHASE 5 · UNDISCLOSED</div>
+        <div class="phase-title"><span class="accent-pink">CLASSIFIED.</span><br>You're not ready.</div>
+        <p class="phase-desc">
+          We cannot disclose the full scope of Phase 5 at this time.
+          What we can say is that it involves a food category that will challenge
+          everything you think you know about classification.
+          The training data alone required three months of international travel.
+        </p>
+        <div class="milestone-list">
+          <div class="milestone redacted-item"><span class="milestone-check" style="color:var(--neon-pink)">▓</span><span class="milestone-text">████████████████████████████████████</span></div>
+          <div class="milestone redacted-item"><span class="milestone-check" style="color:var(--neon-pink)">▓</span><span class="milestone-text">█████████████████ (partnership NDA)</span></div>
+          <div class="milestone redacted-item"><span class="milestone-check" style="color:var(--neon-pink)">▓</span><span class="milestone-text">████████ vs. ███████ — the final boss</span></div>
+        </div>
+        <div class="okr-box pink">
+          <div class="okr-label">// KEY RESULT</div>
+          <div class="okr-text" style="color:var(--neon-pink)">REDACTED. BOARD-EYES ONLY.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- THE VISION -->
+<section class="section">
+  <span class="section-tag">// THE LONG GAME</span>
+  <h2 class="section-title">We're not building an app.<br><span>We're building infrastructure.</span></h2>
+  <p class="section-body">
+    Every food. Every culture. Every ambiguous meat-based cylinder.
+    Classified. Instantly. Privately. For free. Forever.
+  </p>
+  <div class="vision-box">
+    <div class="vision-title">THE 10-YEAR THESIS</div>
+    <div class="vision-body">
+      In 2035, no one will need to wonder what food they are looking at.
+      The answer will be immediate, local, and free.
+      SeeFood will have classified over 1 billion food items.
+      None of that data will have left the user's device.
+      <br><br>
+      We started with hot dogs because that is where the problem is clearest.
+      The binary is clean. The stakes are low. The model is honest.
+      <br><br>
+      From this foundation, we expand — deliberately, methodically,
+      one food category at a time — until the problem is solved.
+      The problem being: not knowing what you are eating.
+      Which, when you think about it, is a very human problem indeed.
+    </div>
+    <div class="stat-row">
+      <div class="stat">
+        <div class="stat-number">1B+</div>
+        <div class="stat-label">CLASSIFICATIONS BY 2035</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">0</div>
+        <div class="stat-label">DATA POINTS SENT TO SERVER</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">∞</div>
+        <div class="stat-label">HOT DOGS VERIFIED</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <h2 class="final-cta-title">THE MISSION<br>IS CLEAR.</h2>
+  <p class="final-cta-sub">// ONE FOOD CATEGORY AT A TIME</p>
+  <a href="app.html" class="btn-primary">START WITH HOT DOGS</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-logo">SEEFOOD</span>
+  <span class="footer-copy">
+    Inspired by Jian-Yang's vision · Built with TensorFlow ·
+    Powered by pure ambition ·
+    <a href="https://github.com/tensorflow/tfjs-models/tree/master/mobilenet" target="_blank">MobileNet</a>
+  </span>
+</footer>
+
+</body>
+</html>
