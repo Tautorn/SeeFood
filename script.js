@@ -22,10 +22,13 @@ async function loadModel() {
   loading.classList.add('show');
   loadingText.textContent = 'Loading model...';
   try {
-    // MobileNet v1 is hosted on Google Cloud Storage with proper CORS headers.
-    // v2 is hosted on tfhub.dev which now redirects to kaggle.com (no CORS),
-    // so it fails in production browsers.
-    model = await mobilenet.load({ version: 1, alpha: 1.0 });
+    // Load directly from GCS which has proper CORS headers.
+    // tfhub.dev redirects to kaggle.com (no CORS) and fails in production.
+    model = await mobilenet.load({
+      version: 1,
+      alpha: 1.0,
+      modelUrl: 'https://storage.googleapis.com/tfjs-models/tfjs/mobilenet_v1_1.0_224/model.json'
+    });
   } catch (e) {
     console.error(e);
     loadingText.textContent = 'Failed to load model. Please reload the page.';
